@@ -5,4 +5,6 @@ public interface Consts {
     String FEATURED = "featured";
     String PREF_NAME = "tiktok_stars_pref";
     String SELECTED_COUNTRY = "selected_country";
+    String SELECTED_PROFILE = "selected_profile";
+    String TIKTOK_PACKAGE = "com.zhiliaoapp.musically";
 }
