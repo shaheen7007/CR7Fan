@@ -1,6 +1,9 @@
 package com.shaheen.testapp.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Movie;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.shaheen.testapp.Consts;
 import com.shaheen.testapp.R;
+import com.shaheen.testapp.activity.ProfileActivity;
 import com.shaheen.testapp.model.Profile;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -23,21 +31,31 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
     private List<Profile> profileList;
     private Context context;
 
+    RequestOptions options;
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public ImageView profilePic;
-        public TextView user_id, followers;
+        CircleImageView profilePic;
+        TextView user_id, followers;
+        CardView viewItem;
 
         public MyViewHolder(View view) {
             super(view);
             user_id = view.findViewById(R.id.user_id);
             followers = view.findViewById(R.id.followers);
-            profilePic = view.findViewById(R.id.imgGallery);
+            profilePic = view.findViewById(R.id.profile_image);
+            viewItem = view.findViewById(R.id.view_item);
+            options = new RequestOptions();
+            options.centerCrop();
+
+
         }
     }
 
     public ProfileListAdapter(List<Profile> profiles, Context context) {
         this.profileList = profiles;
         this.context = context;
+
     }
 
     @Override
@@ -49,13 +67,32 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        Profile profile = profileList.get(position);
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        final Profile profile = profileList.get(position);
         holder.user_id.setText(profile.getTiktok_id());
         holder.followers.setText(profile.getFollowers());
-      //  Glide.with(context).load("http://hanassets.nd.gov/images/product/test.png").dontAnimate().into(holder.profilePic);
-        Picasso.with(context).load("http://hanassets.nd.gov/images/product/test.png").into(holder.profilePic);
+
+        Glide.with(context)
+                .load(profile.getImg_url())
+                .apply(options)
+                .into(holder.profilePic);
+
+        holder.viewItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra(Consts.SELECTED_PROFILE,profile);
+
+                ActivityOptions options = ActivityOptions
+                        .makeSceneTransitionAnimation((Activity) context,holder.profilePic,"propic");
+
+                context.startActivity(intent, options.toBundle());
+
+            }
+        });
+
     }
+
 
     @Override
     public int getItemCount() {

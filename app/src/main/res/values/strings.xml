@@ -16,6 +16,6 @@
     </integer-array>
 
     <string-array name="default_empty_list" />
-
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
 </resources>

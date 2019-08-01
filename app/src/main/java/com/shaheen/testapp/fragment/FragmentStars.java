@@ -5,7 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -14,6 +16,7 @@ import com.shaheen.testapp.R;
 import com.shaheen.testapp.adapter.ProfileListAdapter;
 import com.shaheen.testapp.databaseRef.StarsRef;
 import com.shaheen.testapp.model.Profile;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -70,6 +73,8 @@ public class FragmentStars extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         profileListAdapter = new ProfileListAdapter(profileArrayList, getActivity());
         recyclerView.setAdapter(profileListAdapter);
+        recyclerView.setHasFixedSize(true);
+
     }
 
     private void mGetDataFromFirebase() {
@@ -95,6 +100,7 @@ public class FragmentStars extends Fragment {
 
 
     }
+
 
     private void mShowInRecylerView() {
         profileListAdapter.notifyDataSetChanged();

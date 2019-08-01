@@ -1,11 +1,46 @@
 package com.shaheen.testapp.model;
 
-public class Profile {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Profile implements Parcelable {
     String tiktok_id,followers,img_url;
     String no_of_followers;
 
     public Profile() {
     }
+
+    protected Profile(Parcel in) {
+        tiktok_id = in.readString();
+        followers = in.readString();
+        img_url = in.readString();
+        no_of_followers = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(tiktok_id);
+        dest.writeString(followers);
+        dest.writeString(img_url);
+        dest.writeString(no_of_followers);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Profile> CREATOR = new Creator<Profile>() {
+        @Override
+        public Profile createFromParcel(Parcel in) {
+            return new Profile(in);
+        }
+
+        @Override
+        public Profile[] newArray(int size) {
+            return new Profile[size];
+        }
+    };
 
     public String getTiktok_id() {
         return tiktok_id;
