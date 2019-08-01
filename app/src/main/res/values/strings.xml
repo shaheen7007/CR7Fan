@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">TestApp</string>
+
+
+    <array name="countries">
+        <item>India</item>
+        <item>China</item>
+        <item>Korea</item>
+    </array>
+
+
+    <integer-array name="flags">
+        <item>@drawable/ic_flag_india</item>
+        <item>@drawable/ic_flag_china</item>
+        <item>@drawable/ic_flag_south_korea</item>
+    </integer-array>
+
+    <string-array name="default_empty_list" />
+
+
+</resources>
