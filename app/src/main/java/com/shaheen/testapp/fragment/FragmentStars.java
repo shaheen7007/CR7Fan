@@ -5,9 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -16,7 +14,6 @@ import com.shaheen.testapp.R;
 import com.shaheen.testapp.adapter.ProfileListAdapter;
 import com.shaheen.testapp.databaseRef.StarsRef;
 import com.shaheen.testapp.model.Profile;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -33,6 +30,8 @@ public class FragmentStars extends Fragment {
     private ArrayList<Profile> profileArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProfileListAdapter profileListAdapter;
+    String[] countries;
+
 
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
@@ -47,13 +46,14 @@ public class FragmentStars extends Fragment {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt("pos");
         prefManager = PrefManager.getInstance(getActivity());
-        selected_country = prefManager.getCountry();
+        countries = getResources().getStringArray(R.array.countries);
+        selected_country = countries[prefManager.getCountry()];
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tab, container, false);
+        return inflater.inflate(R.layout.fragment_stars, container, false);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class FragmentStars extends Fragment {
 
     private void mGetDataFromFirebase() {
         profileArrayList.clear();
-        StarsRef.getInstance(getActivity(), prefManager.getCountry()).addValueEventListener(new ValueEventListener() {
+        StarsRef.getInstance(getActivity(), countries[prefManager.getCountry()]).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

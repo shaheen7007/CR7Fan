@@ -1,0 +1,66 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_8"
+    android:padding="15dp"
+    android:layout_marginTop="@dimen/dp_8"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:id="@+id/lyt_image"
+        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:transitionName="propic"
+            android:src="@drawable/pic2"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#fff"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/tiktok_id"
+            android:hint="@string/tik_tok_id"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:hint="@string/tik_tok_url"
+            android:id="@+id/profile"
+            android:layout_height="wrap_content" />
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:text="Submit"
+            android:textSize="20sp"
+            android:layout_marginTop="50dp"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:id="@+id/submit"
+            android:background="#D11C1C"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

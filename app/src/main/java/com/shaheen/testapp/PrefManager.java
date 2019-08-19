@@ -20,15 +20,19 @@ public class PrefManager{
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
+    }private void putInt(String key, int value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, value);
+        editor.apply();
     }
 
 
-    public String getCountry() {
-        return sharedPreferences.getString(Consts.SELECTED_COUNTRY, "world");
+    public int getCountry() {
+        return sharedPreferences.getInt(Consts.SELECTED_COUNTRY, 0);
     }
 
-    public void setCountry(String country) {
-        putString(Consts.SELECTED_COUNTRY, country);
+    public void setCountry(int country) {
+        putInt(Consts.SELECTED_COUNTRY, country);
     }
 
 

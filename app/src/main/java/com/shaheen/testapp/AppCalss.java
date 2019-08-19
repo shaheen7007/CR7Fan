@@ -9,5 +9,6 @@ public class AppCalss extends Application {
     public void onCreate() {
         super.onCreate();
         FirebaseApp.initializeApp(this);
+
     }
 }

@@ -7,4 +7,5 @@ public interface Consts {
     String SELECTED_COUNTRY = "selected_country";
     String SELECTED_PROFILE = "selected_profile";
     String TIKTOK_PACKAGE = "com.zhiliaoapp.musically";
+    String FIREBASE_STORAGE_URL="gs://panthu-kali-real.appspot.com";
 }

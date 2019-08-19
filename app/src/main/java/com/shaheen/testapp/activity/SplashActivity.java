@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Bundle;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 import com.shaheen.testapp.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
 
         handler=new Handler();

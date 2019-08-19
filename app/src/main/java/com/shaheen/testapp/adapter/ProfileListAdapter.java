@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Movie;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,12 +15,10 @@ import com.shaheen.testapp.Consts;
 import com.shaheen.testapp.R;
 import com.shaheen.testapp.activity.ProfileActivity;
 import com.shaheen.testapp.model.Profile;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import androidx.cardview.widget.CardView;
-import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -81,10 +77,10 @@ public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProfileActivity.class);
-                intent.putExtra(Consts.SELECTED_PROFILE,profile);
+                intent.putExtra(Consts.SELECTED_PROFILE, profile);
 
                 ActivityOptions options = ActivityOptions
-                        .makeSceneTransitionAnimation((Activity) context,holder.profilePic,"propic");
+                        .makeSceneTransitionAnimation((Activity) context, holder.profilePic, "propic");
 
                 context.startActivity(intent, options.toBundle());
 
