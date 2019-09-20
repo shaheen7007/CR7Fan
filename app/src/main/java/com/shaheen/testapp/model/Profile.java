@@ -3,8 +3,8 @@ package com.shaheen.testapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Profile implements Parcelable {
-    String tiktok_id,followers,img_url;
+public class Profile implements Parcelable{
+    String tiktok_id,followers,img_url,profileURL;
     String no_of_followers;
 
     public Profile() {
@@ -17,18 +17,6 @@ public class Profile implements Parcelable {
         no_of_followers = in.readString();
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(tiktok_id);
-        dest.writeString(followers);
-        dest.writeString(img_url);
-        dest.writeString(no_of_followers);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
     public static final Creator<Profile> CREATOR = new Creator<Profile>() {
         @Override
@@ -41,6 +29,14 @@ public class Profile implements Parcelable {
             return new Profile[size];
         }
     };
+
+    public String getProfileURL() {
+        return profileURL;
+    }
+
+    public void setProfileURL(String profileURL) {
+        this.profileURL = profileURL;
+    }
 
     public String getTiktok_id() {
         return tiktok_id;
@@ -72,5 +68,19 @@ public class Profile implements Parcelable {
 
     public void setNo_of_followers(String no_of_followers) {
         this.no_of_followers = no_of_followers;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(tiktok_id);
+        dest.writeString(followers);
+        dest.writeString(img_url);
+        dest.writeString(profileURL);
+        dest.writeString(no_of_followers);
     }
 }

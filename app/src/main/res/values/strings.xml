@@ -3,6 +3,7 @@
 
 
     <array name="countries">
+        <item>world</item>
         <item>India</item>
         <item>China</item>
         <item>Korea</item>
@@ -17,5 +18,12 @@
 
     <string-array name="default_empty_list" />
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
-
+    <string name="bottom_sheet_option_camera">Use Camera</string>
+    <string name="bottom_sheet_option_gallery">Upload from Gallery</string>
+    <string name="bottom_sheet_option_heading">Add Photo</string>
+    <string name="bottom_sheet_option_remove_photo">Remove Photo</string>
+    <string name="tik_tok_id">TikTok Id</string>
+    <string name="tik_tok_url">TikTok Profile URL</string>
+    <string name="Open">open</string>
+    <string name="Close">clos</string>
 </resources>
