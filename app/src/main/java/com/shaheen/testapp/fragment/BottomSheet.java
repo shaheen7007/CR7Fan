@@ -21,10 +21,14 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.shaheen.testapp.R;
+import com.shaheen.testapp.databaseRef.TiktokIDsRef;
 import com.shaheen.testapp.progressdialog.WorkingProgressDialog;
 import com.shaheen.testapp.databaseRef.FeaturedRef;
 import com.shaheen.testapp.model.Profile;
@@ -70,6 +74,7 @@ public class BottomSheet extends BottomSheetDialogFragment implements View.OnCli
         BTNsubmit = view.findViewById(R.id.submit);
         ET_tiktokID = view.findViewById(R.id.tiktok_id);
         ET_tiktokURL = view.findViewById(R.id.profile);
+        returnValue = new ArrayList<>();
 
         profile_image.setOnClickListener(this);
         BTNsubmit.setOnClickListener(this);
@@ -125,8 +130,32 @@ public class BottomSheet extends BottomSheetDialogFragment implements View.OnCli
 
             if (valid()) {
 
-                showProgressDialog();
-                mAddProfileToFirebase();
+
+                TiktokIDsRef.getInstance(getActivity()).child(ET_tiktokID.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+
+                            Toast.makeText(getActivity(), "Your account is already added", Toast.LENGTH_SHORT).show();
+
+
+                        }
+                        else {
+
+                            showProgressDialog();
+                            mAddProfileToFirebase();
+
+
+
+                         }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
 
             }
         }
@@ -143,7 +172,6 @@ public class BottomSheet extends BottomSheetDialogFragment implements View.OnCli
     private void mUploadProfilePic() {
 
         final StorageReference ref = storageReference.child("images").child("featured").child(UUID.randomUUID().toString());
-
 
 
         uploadTask = ref.putFile(Uri.fromFile(mReduceImageSize(new File(returnValue.get(0)))));
@@ -185,12 +213,13 @@ public class BottomSheet extends BottomSheetDialogFragment implements View.OnCli
         profile.setProfileURL(ET_tiktokURL.getText().toString());
 
         FeaturedRef.getInstance(getActivity()).getRef().push().setValue(profile);
+        TiktokIDsRef.getInstance(getActivity()).child(profile.getTiktok_id()).setValue(profile.getProfileURL());
 
         Toast.makeText(getActivity(), "Profile added successfully", Toast.LENGTH_SHORT).show();
 
         ET_tiktokURL.setText("");
         ET_tiktokID.setText("");
-        myBitmap=null;
+        myBitmap = null;
 
         hideProgressDialog();
         dismiss();
@@ -213,17 +242,13 @@ public class BottomSheet extends BottomSheetDialogFragment implements View.OnCli
             Toast.makeText(getActivity(), "Please enter a valid profile URL to continue", Toast.LENGTH_SHORT).show();
             return false;
         } else {
+
             return true;
         }
     }
 
 
-
-
-
-
-
-    public File mReduceImageSize(File file){
+    public File mReduceImageSize(File file) {
         try {
 
             // BitmapFactory options to downsize the image
@@ -238,11 +263,11 @@ public class BottomSheet extends BottomSheetDialogFragment implements View.OnCli
             inputStream.close();
 
             // The new size we want to scale to
-            final int REQUIRED_SIZE=75;
+            final int REQUIRED_SIZE = 75;
 
             // Find the correct scale value. It should be the power of 2.
             int scale = 1;
-            while(o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE &&
                     o.outHeight / scale / 2 >= REQUIRED_SIZE) {
                 scale *= 2;
             }
@@ -258,7 +283,7 @@ public class BottomSheet extends BottomSheetDialogFragment implements View.OnCli
             file.createNewFile();
             FileOutputStream outputStream = new FileOutputStream(file);
 
-            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100 , outputStream);
+            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
 
             return file;
         } catch (Exception e) {
@@ -279,7 +304,6 @@ public class BottomSheet extends BottomSheetDialogFragment implements View.OnCli
             dialog.dismiss();
         }
     }
-
 
 
 }

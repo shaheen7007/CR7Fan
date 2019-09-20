@@ -8,4 +8,6 @@ public interface Consts {
     String SELECTED_PROFILE = "selected_profile";
     String TIKTOK_PACKAGE = "com.zhiliaoapp.musically";
     String FIREBASE_STORAGE_URL="gs://panthu-kali-real.appspot.com";
+    String TIKTOK_IDS = "tiktok_ids";
+    String IS_LOGGED_IN = "is_logged_in";
 }

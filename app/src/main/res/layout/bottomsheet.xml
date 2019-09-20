@@ -37,12 +37,14 @@
             android:layout_width="match_parent"
             android:id="@+id/tiktok_id"
             android:hint="@string/tik_tok_id"
+            android:singleLine="true"
             android:layout_height="wrap_content" />
 
         <EditText
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:hint="@string/tik_tok_url"
+            android:singleLine="true"
             android:id="@+id/profile"
             android:layout_height="wrap_content" />
 
